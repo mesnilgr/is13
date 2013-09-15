@@ -1,19 +1,19 @@
 import theano
 import numpy
+import os
 
 from theano import tensor as T
 from collections import OrderedDict
 
 class model(object):
 
-    def __init__(self, nh, nc, ne, de, cs, st = 'proba'):
+    def __init__(self, nh, nc, ne, de, cs):
         '''
         nh :: dimension of the hidden layer
         nc :: number of classes
         ne :: number of word embeddings in the vocabulary
         de :: dimension of the word embeddings
         cs :: word window context size
-        st :: state feedback, proba or argmax
         '''
         assert st in ['proba', 'argmax']
 
@@ -40,7 +40,6 @@ class model(object):
             h_t = T.nnet.sigmoid(T.dot(x_t, self.Wx) + \
                                  T.dot(s_tm1, self.Ws) + self.bh)
             s_t = T.nnet.softmax(T.dot(h_t, self.W) + self.b)[0]
-            if st == 'argmax': s_t = T.argmax(s_t, axis=0)
             return [h_t, s_t]
 
         [h, s], _ = theano.scan(fn=recurrence, \

@@ -21,7 +21,6 @@ if __name__ == '__main__':
          'nhidden':100, # number of hidden units
          'seed':345,
          'emb_dimension':100, # dimension of word embedding
-         'type':'proba', # proba, argmax
          'nepochs':50}
 
     folder = os.path.basename(__file__).split('.')[0]
@@ -53,7 +52,6 @@ if __name__ == '__main__':
                     nc = nclasses,
                     ne = vocsize,
                     de = s['emb_dimension'],
-                    st = s['type'],
                     cs = s['win'] )
 
     # train with early stopping on validation set
