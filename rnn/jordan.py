@@ -15,7 +15,7 @@ class model(object):
         de :: dimension of the word embeddings
         cs :: word window context size
         '''
-        assert st in ['proba', 'argmax']
+        #assert st in ['proba', 'argmax']
 
         self.emb = theano.shared(0.2 * numpy.random.uniform(-1.0, 1.0,\
                    (ne+1, de)).astype(theano.config.floatX)) # add one for PADDING at the end
@@ -55,18 +55,18 @@ class model(object):
         nll = -T.mean(T.log(p_y_given_x_lastword)[y])
         gradients = T.grad( nll, self.params )
         updates = OrderedDict(( p, p-lr*g ) for p, g in zip( self.params , gradients))
-        
+
         # theano functions
         self.classify = theano.function(inputs=[idxs], outputs=y_pred)
 
         self.train = theano.function( inputs  = [idxs, y, lr],
                                       outputs = nll,
                                       updates = updates )
-        
+
         self.normalize = theano.function( inputs = [],
                          updates = {self.emb:\
                          self.emb/T.sqrt((self.emb**2).sum(axis=1)).dimshuffle(0,'x')})
 
-    def save(self, folder):   
+    def save(self, folder):
         for param, name in zip(self.params, self.names):
             numpy.save(os.path.join(folder, name + '.npy'), param.get_value())
