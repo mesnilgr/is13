@@ -34,6 +34,20 @@ python examples/jordan-forward.py
 
 [Download ATIS Dataset here!](https://www.dropbox.com/s/3lxl9jsbw0j7h8a/atis.pkl?dl=0)
 
+```
+import cPickle
+train, test, dicts = cPickle.load(open("atis.pkl"))
+```
+
+`dicts` is a python dictionnary that contains the mapping from the labels, the
+name entities (if existing) and the words to indexes used in `train` and `test`
+lists. Refer to this [tutorial](http://deeplearning.net/tutorial/rnnslu.html) for more details. 
+
+Running the following command can give you an idea of how the data has been preprocessed:
+
+```
+python data/load.py
+```
 
 ## License
 
