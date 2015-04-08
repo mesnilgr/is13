@@ -110,5 +110,5 @@ if __name__ == '__main__':
         if s['decay'] and abs(s['be']-s['ce']) >= 10: s['clr'] *= 0.5 
         if s['clr'] < 1e-5: break
 
-    print 'BEST RESULT: epoch', e, 'valid F1', res_valid['f1'], 'best test F1', res_test['f1'], 'with the model', folder
+    print 'BEST RESULT: epoch', e, 'valid F1', s['vf1'], 'best test F1', s['tf1'], 'with the model', folder
 
