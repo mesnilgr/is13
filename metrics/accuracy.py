@@ -37,7 +37,6 @@ def conlleval(p, g, w, filename):
     
     return get_perf(filename)
 
-
 def get_perf(filename):
     ''' run conlleval.pl perl script to obtain
     precision/recall and F1 score '''
@@ -47,7 +46,7 @@ def get_perf(filename):
         chmod('conlleval.pl', stat.S_IRWXU) # give the execute permissions
 
     proc = subprocess.Popen(["perl", _conlleval], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-    stdout, _ = proc.communicate('\n'.join(open(filename).readlines()))
+    stdout, _ = proc.communicate(open(filename).read()))
     for line in stdout.split('\n'):
         if 'accuracy' in line:
             out = line.split()
@@ -59,8 +58,6 @@ def get_perf(filename):
 
     return {'p':precision, 'r':recall, 'f1':f1score}
 
-
-        
 def get_perfo(filename):
     ''' 
     work around for using a PERL script in python
