@@ -46,7 +46,7 @@ def get_perf(filename):
         chmod('conlleval.pl', stat.S_IRWXU) # give the execute permissions
 
     proc = subprocess.Popen(["perl", _conlleval], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-    stdout, _ = proc.communicate(open(filename).read()))
+    stdout, _ = proc.communicate(open(filename).read())
     for line in stdout.split('\n'):
         if 'accuracy' in line:
             out = line.split()
