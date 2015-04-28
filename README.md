@@ -20,14 +20,13 @@ In order to reproduce the results, make sure Theano is installed and run the fol
 
 ```
 git clone git@github.com:mesnilgr/is13.git
-cd is13
-python examples/elman-forward.py
+python is13/examples/elman-forward.py
 ```
 
 For running the Jordan architecture:
 
 ```
-python examples/jordan-forward.py
+python is13/examples/jordan-forward.py
 ```
 
 ## ATIS Data
