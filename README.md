@@ -16,7 +16,10 @@ We also have a follow-up IEEE paper:
 This code allows to get state-of-the-art results and a significant improvement
 (+1% in F1-score) with respect to the results presented in the paper.
 
-In order to reproduce the results, make sure Theano is installed and run the following commands:
+In order to reproduce the results, make sure Theano is installed and the
+repository is in your `PYTHONPATH` (in the shell, run the command export
+PYTHONPATH=/path/where/is13/will/be:$PYTHONPATH).  Then, run the following
+commands:
 
 ```
 git clone git@github.com:mesnilgr/is13.git
