@@ -18,7 +18,7 @@ This code allows to get state-of-the-art results and a significant improvement
 
 In order to reproduce the results, make sure Theano is installed and the
 repository is in your `PYTHONPATH` (in the shell, run the command export
-PYTHONPATH=/path/where/is13/will/be:$PYTHONPATH).  Then, run the following
+`PYTHONPATH=/path/where/is13/will/be:$PYTHONPATH`). Then, run the following
 commands:
 
 ```
