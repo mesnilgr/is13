@@ -35,14 +35,8 @@ if __name__ == '__main__':
     valid_lex, valid_ne, valid_y = valid_set
     test_lex,  test_ne,  test_y  = test_set
 
-    vocsize = len(set(reduce(\
-                       lambda x, y: list(x)+list(y),\
-                       train_lex+valid_lex+test_lex)))
-
-    nclasses = len(set(reduce(\
-                       lambda x, y: list(x)+list(y),\
-                       train_y+test_y+valid_y)))
-    
+    vocsize = len(dic['words2idx'])
+    nclasses = len(dic['labels2idx'])
     nsentences = len(train_lex)
 
     # instanciate the model
@@ -73,7 +67,7 @@ if __name__ == '__main__':
             if s['verbose']:
                 print '[learning] epoch %i >> %2.2f%%'%(e,(i+1)*100./nsentences),'completed in %.2f (sec) <<\r'%(time.time()-tic),
                 sys.stdout.flush()
-            
+
         # evaluation // back into the real world : idx -> words
         predictions_test = [ map(lambda x: idx2label[x], \
                              rnn.classify(numpy.asarray(contextwin(x, s['win'])).astype('int32')))\
@@ -103,9 +97,9 @@ if __name__ == '__main__':
             subprocess.call(['mv', folder + '/current.valid.txt', folder + '/best.valid.txt'])
         else:
             print ''
-        
+
         # learning rate decay if no improvement in 10 epochs
-        if s['decay'] and abs(s['be']-s['ce']) >= 10: s['clr'] *= 0.5 
+        if s['decay'] and abs(s['be']-s['ce']) >= 10: s['clr'] *= 0.5
         if s['clr'] < 1e-5: break
 
     print 'BEST RESULT: epoch', e, 'valid F1', s['vf1'], 'best test F1', s['tf1'], 'with the model', folder
