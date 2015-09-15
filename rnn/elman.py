@@ -50,7 +50,7 @@ class model(object):
 
         # cost and gradients and learning rate
         lr = T.scalar('lr')
-        nll = -T.mean(T.log(p_y_given_x_lastword)[y])
+        nll = -T.log(p_y_given_x_lastword)[y]
         gradients = T.grad( nll, self.params )
         updates = OrderedDict(( p, p-lr*g ) for p, g in zip( self.params , gradients))
         
