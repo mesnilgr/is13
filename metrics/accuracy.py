@@ -42,7 +42,8 @@ def get_perf(filename):
     precision/recall and F1 score '''
     _conlleval = PREFIX + 'conlleval.pl'
     if not isfile(_conlleval):
-        download('http://www-etud.iro.umontreal.ca/~mesnilgr/atis/conlleval.pl') 
+        #download('http://www-etud.iro.umontreal.ca/~mesnilgr/atis/conlleval.pl') 
+        os.system('wget https://www.comp.nus.edu.sg/%7Ekanmy/courses/practicalNLP_2008/packages/conlleval.pl')
         chmod('conlleval.pl', stat.S_IRWXU) # give the execute permissions
 
     proc = subprocess.Popen(["perl", _conlleval], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
@@ -52,9 +53,11 @@ def get_perf(filename):
             out = line.split()
             break
     
-    precision = float(out[6][:-2])
-    recall    = float(out[8][:-2])
-    f1score   = float(out[10])
+    # out = ['accuracy:', '16.26%;', 'precision:', '0.00%;', 'recall:', '0.00%;', 'FB1:', '0.00']
+    
+    precision = float(out[3][:-2])
+    recall    = float(out[5][:-2])
+    f1score   = float(out[7])
 
     return {'p':precision, 'r':recall, 'f1':f1score}
 
@@ -65,7 +68,8 @@ def get_perfo(filename):
     '''
     tempfile = str(random.randint(1,numpy.iinfo('i').max)) + '.txt'
     if not isfile(PREFIX + 'conlleval.pl'):
-        download('http://www-etud.iro.umontreal.ca/~mesnilgr/atis/conlleval.pl') 
+        os.system('wget https://www.comp.nus.edu.sg/%7Ekanmy/courses/practicalNLP_2008/packages/conlleval.pl')
+        #download('http://www-etud.iro.umontreal.ca/~mesnilgr/atis/conlleval.pl') 
         chmod('conlleval.pl', stat.S_IRWXU) # give the execute permissions
     if len(PREFIX) > 0:
         chmod(PREFIX + 'conlleval.pl', stat.S_IRWXU) # give the execute permissions
