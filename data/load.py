@@ -24,7 +24,7 @@ def download_dropbox():
     print 'Downloading data from https://www.dropbox.com/s/3lxl9jsbw0j7h8a/atis.pkl?dl=0'
     os.system('wget -O atis.pkl https://www.dropbox.com/s/3lxl9jsbw0j7h8a/atis.pkl?dl=0')
 
-def load(filename):
+def load_dropbox(filename):
     if not isfile(filename):
         #download('http://www-etud.iro.umontreal.ca/~mesnilgr/atis/'+filename)
         download_dropbox()
@@ -32,34 +32,33 @@ def load(filename):
     f = open(filename,'rb')
     return f
 
+def load_udem(filename):
+    if not isfile(filename):
+        download('http://lisaweb.iro.umontreal.ca/transfert/lisa/users/mesnilgr/atis/'+filename)
+    f = gzip.open(filename,'rb')
+    return f
+
+
 def atisfull():
-    #f = load(PREFIX + 'atis.pkl.gz')
-    f = load(PREFIX + 'atis.pkl')
+    f = load_dropbox(PREFIX + 'atis.pkl')
     train_set, test_set, dicts = cPickle.load(f)
     return train_set, test_set, dicts
 
 def atisfold(fold):
     assert fold in range(5)
-    #f = load(PREFIX + 'atis.fold'+str(fold)+'.pkl.gz')
-    f = load(PREFIX + 'atis.pkl')
-    train_set, test_set, dicts = cPickle.load(f)
-    new_train_set, new_valid_set = [], []
-    for subset in train_set:
-        random.seed(fold)
-        random.shuffle(subset)
-        new_train_set += [subset[:978]]
-        new_valid_set += [subset[-978:]]
-    return new_train_set, new_valid_set, test_set, dicts
+    f = load_udem(PREFIX + 'atis.fold'+str(fold)+'.pkl.gz')
+    train_set, valid_set, test_set, dicts = cPickle.load(f)
+    return train_set, valid_set, test_set, dicts
  
 if __name__ == '__main__':
     
     ''' visualize a few sentences '''
 
     import pdb
-    data = atisfull()
-
+    
     w2ne, w2la = {}, {}
-    train, test, dic = data
+    train, test, dic = atisfull()
+    train, _, test, dic = atisfold(1)
     
     w2idx, ne2idx, labels2idx = dic['words2idx'], dic['tables2idx'], dic['labels2idx']
     
