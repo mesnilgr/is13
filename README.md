@@ -34,7 +34,7 @@ python is13/examples/jordan-forward.py
 
 ## ATIS Data
 
-[Download ATIS Dataset here!](https://www.dropbox.com/s/3lxl9jsbw0j7h8a/atis.pkl?dl=0)
+[Download ATIS Dataset here!](https://www.dropbox.com/s/3lxl9jsbw0j7h8a/atis.pkl?dl=0) [split 0](https://www.dropbox.com/s/4n6wkptdazthj0e/atis.fold0.pkl?dl=0) [split 1](https://www.dropbox.com/s/ikyzbb06mxh69pv/atis.fold1.pkl?dl=0) [split 2](https://www.dropbox.com/s/5ek0vx2yo54878o/atis.fold2.pkl?dl=0) [split 3](https://www.dropbox.com/s/31r4bqids24n0vr/atis.fold3.pkl?dl=0) [split 4](https://www.dropbox.com/s/hvp50m4snmkroe4/atis.fold4.pkl?dl=0)
 
 ```
 import cPickle
