@@ -1,3 +1,7 @@
+**Note:** I don't provide personal support for custom changes in the code. Only
+for the release.  For people just starting, I recommend
+[Treehouse](http://referrals.trhou.se/grgoiremesnil) for online-learning.
+
 Investigation of Recurrent Neural Network Architectures and Learning Methods for Spoken Language Understanding
 ==============================================================================================================
 
