@@ -54,6 +54,7 @@ Running the following command can give you an idea of how the data has been prep
 ```
 python data/load.py
 ```
+To download the intent labels, you may be intersted in this [notebook](https://github.com/kpe/notebooks/blob/master/ms_cntk_atis_dataset_reader.ipynb). 
 
 ## License
 
