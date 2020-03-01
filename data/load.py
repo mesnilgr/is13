@@ -17,19 +17,26 @@ def download(origin):
     name = origin.split('/')[-1]
     urllib.urlretrieve(origin, name)
 
-def download_dropbox():
-    ''' 
+def download_dropbox(fold):
+    '''
     download from drop box in the meantime
     '''
-    print 'Downloading data from https://www.dropbox.com/s/3lxl9jsbw0j7h8a/atis.pkl?dl=0'
-    os.system('wget -O atis.pkl https://www.dropbox.com/s/3lxl9jsbw0j7h8a/atis.pkl?dl=0')
+    try:
+        assert fold in [1, 3]
+    except AssertionError:
+        print('only the fold 1 and 3 are available since the UdeM deleted my server account without notice. apologies.')
 
-def load_dropbox(filename):
+    if fold == 1:
+        os.system('wget -O atis.fold1.pkl.gz https://www.dropbox.com/s/81ar3d2ck3yavic/atis.fold1.pkl.gz?dl=0')
+    elif fold == 3:
+        os.system('wget -O atis.fold3.pkl.gz https://www.dropbox.com/s/tinjzm1b22tozn8/atis.fold3.pkl.gz?dl=0')
+
+
+def load_dropbox(filename, fold):
     if not isfile(filename):
         #download('http://www-etud.iro.umontreal.ca/~mesnilgr/atis/'+filename)
-        download_dropbox()
-    #f = gzip.open(filename,'rb')
-    f = open(filename,'rb')
+        download_dropbox(fold)
+    f = gzip.open(filename,'rb')
     return f
 
 def load_udem(filename):
@@ -46,22 +53,21 @@ def atisfull():
 
 def atisfold(fold):
     assert fold in range(5)
-    f = load_udem(PREFIX + 'atis.fold'+str(fold)+'.pkl.gz')
+    f = load_dropbox(PREFIX + 'atis.fold'+str(fold)+'.pkl.gz', fold)
     train_set, valid_set, test_set, dicts = cPickle.load(f)
     return train_set, valid_set, test_set, dicts
- 
+
 if __name__ == '__main__':
-    
+
     ''' visualize a few sentences '''
 
     import pdb
-    
+    pdb.set_trace()
     w2ne, w2la = {}, {}
-    train, test, dic = atisfull()
-    train, _, test, dic = atisfold(1)
-    
+    train, _, test, dic = atisfold(3)
+
     w2idx, ne2idx, labels2idx = dic['words2idx'], dic['tables2idx'], dic['labels2idx']
-    
+
     idx2w  = dict((v,k) for k,v in w2idx.iteritems())
     idx2ne = dict((v,k) for k,v in ne2idx.iteritems())
     idx2la = dict((v,k) for k,v in labels2idx.iteritems())
